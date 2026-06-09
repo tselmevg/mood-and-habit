@@ -25,4 +25,11 @@ export function initDB() {
   `);
 }
 
+export function addHabit(name, type, maxCount) {
+  db.runSync(
+    'INSERT INTO habit (habit_name, type, max_habit_num) VALUES (?, ?, ?)',
+    [name, type, maxCount]
+  );
+}
+
 export default db;
