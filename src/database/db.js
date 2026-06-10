@@ -7,7 +7,8 @@ export function initDB() {
     CREATE TABLE IF NOT EXISTS habit (
       habit_id INTEGER PRIMARY KEY,
       habit_name TEXT NOT NULL,
-      max_habit_num INTEGER
+      max_habit_num INTEGER,
+      habit_type TEXT
     );
 
     CREATE TABLE IF NOT EXISTS habit_log (
@@ -25,11 +26,14 @@ export function initDB() {
   `);
 }
 
-export function addHabit(name, type, maxCount) {
+export function addHabit(name, habit_type, maxCount) {
   db.runSync(
-    'INSERT INTO habit (habit_name, type, max_habit_num) VALUES (?, ?, ?)',
-    [name, type, maxCount]
+    'INSERT INTO habit (habit_name, habit_type, max_habit_num) VALUES (?, ?, ?)',
+    [name, habit_type, maxCount]
   );
+}
+export function getHabits() {
+  return db.getAllSync('SELECT * FROM habit');
 }
 
 export default db;
